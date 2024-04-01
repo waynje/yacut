@@ -16,11 +16,13 @@ def index_view():
             short = URLMap.get_unique_short_id()
 
         if URLMap.get_model_instance(short):
-            flash('Предложенный вариант короткой ссылки уже существует.')
+            flash('Предложенный вариант короткой ссылки уже существует.',
+                  'rejected')
             return render_template('index.html', form=form)
 
         if URLMap.validate_short_id(short) is False:
-            flash('Заданная вами ссылка не соответствует регистру.')
+            flash('Заданная вами ссылка не соответствует регистру.',
+                  'rejected')
             return render_template('index.html', form=form)
 
         url = URLMap(
@@ -32,7 +34,7 @@ def index_view():
         flash(
             url_for(
                 'redirect_view', short_id=short, _external=True),
-            'redirect_view'
+            'complete_link'
         )
     return render_template('index.html', form=form)
 

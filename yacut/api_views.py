@@ -1,4 +1,3 @@
-from http import HTTPStatus
 from flask import jsonify, request, url_for
 
 from . import app, db
@@ -25,7 +24,7 @@ def add_short_url():
     if short_link:
         if URLMap.get_model_instance(short_link):
             raise InvalidAPIUsage(
-                f'Предложенный вариант короткой ссылки уже существует.'
+                'Предложенный вариант короткой ссылки уже существует.'
             )
         if URLMap.validate_short_id(short_link) is False:
             raise InvalidAPIUsage(
@@ -39,6 +38,7 @@ def add_short_url():
         'url': new_url.original,
         'short_link': url_for('index_view', _external=True) + new_url.short
     }), 201
+
 
 @app.route('/api/id/<short_id>/', methods=['GET'])
 def get_url(short_id):
