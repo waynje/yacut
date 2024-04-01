@@ -17,7 +17,7 @@ class URLForm(FlaskForm):
         'Введите короткую ссылку',
         validators=[
             Optional(),
-            Length(1,16),
+            Length(1, 16),
             Regexp(
                 regex=LINK_REGEX,
                 message='Допустимы только буквы a-z и цифры.'
